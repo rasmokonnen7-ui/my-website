@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English — Bright Minds Tuition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      color: #000;
+      line-height: 1.5;
+    }
+
+    :root {
+      --orange: #f7941d;
+      --orange-btn: #ff9800;
+      --lavender: #e8daef;
+      --purple: #4e4391;
+      --purple-dark: #5b2c6f;
+      --green: #29a65a;
+      --grey-light: #f2f2f2;
+      --grey-row: #f5f5f5;
+      --accent: #4e4391;
+    }
+
+    .site-header {
+      background: var(--lavender);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      gap: 2rem;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-links a.nav-info {
+      background: var(--purple);
+      color: #fff;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-size: 1.15rem;
+    }
+
+    .nav-links a.nav-home {
+      background: var(--orange-btn);
+      color: #fff;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-size: 1.15rem;
+    }
+
+    .menu-panel-links a.menu-info-link {
+      background: var(--lavender);
+      color: var(--purple);
+      font-weight: 800;
+      margin: 0.25rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .menu-panel-links a.menu-home-link {
+      background: #fff3e0;
+      color: var(--orange-btn);
+      font-weight: 800;
+      margin: 0.25rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .logo { text-align: center; flex-shrink: 0; }
+
+    .logo a { text-decoration: none; color: inherit; }
+
+    .logo-script {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: var(--purple-dark);
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .logo-bulb {
+      position: absolute;
+      top: -0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+    }
+
+    .logo-sub {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--orange-btn);
+      letter-spacing: 0.05em;
+    }
+
+    .header-btn {
+      background: var(--orange-btn);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.55rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .user-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      text-decoration: none;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .user-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .user-icon:hover {
+      background: #3d3578;
+    }
+
+    .user-icon--logged-out {
+      background: #fff;
+      color: var(--purple);
+      border-color: var(--purple);
+    }
+
+    .user-icon--logged-out:hover {
+      background: var(--lavender);
+    }
+
+    .menu-wrap { position: relative; }
+
+    .menu-dropdown summary { list-style: none; }
+    .menu-dropdown summary::-webkit-details-marker { display: none; }
+    .menu-dropdown summary::marker { display: none; content: ''; }
+
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 210px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+      padding: 0.5rem 0 0.75rem;
+      z-index: 200;
+    }
+
+    .menu-panel-links a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .menu-panel-links a:hover { background: var(--grey-light); }
+
+    .menu-actions {
+      margin-top: 0.35rem;
+      padding: 0.75rem 1rem 0;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .menu-action-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+    }
+
+    .menu-signup {
+      background: #fff;
+      color: var(--purple);
+      border: 2px solid var(--purple);
+    }
+
+    .menu-login {
+      background: #fff;
+      color: var(--orange-btn);
+      border: 2px solid var(--orange-btn);
+    }
+
+    .menu-book {
+      background: var(--orange-btn);
+      color: #fff;
+      border: 2px solid var(--orange-btn);
+    }
+
+    .subject-page { background: var(--orange); min-height: calc(100vh - 80px); }
+
+    .subject-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 3rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .subject-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px var(--purple);
+    }
+
+    .subject-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .subject-hero p { font-size: 1.05rem; max-width: 560px; }
+
+    .subject-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem 4rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .table-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .data-table thead th {
+      background: var(--purple);
+      color: #fff;
+      font-weight: 700;
+      text-align: left;
+      padding: 1rem 1.25rem;
+    }
+
+    .data-table tbody td {
+      padding: 0.9rem 1.25rem;
+      font-weight: 700;
+    }
+
+    .data-table tbody tr:nth-child(odd) { background: #fff; }
+    .data-table tbody tr:nth-child(even) { background: var(--grey-row); }
+
+    .price-note {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .page-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .page-actions a {
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.65rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--orange-btn);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--purple);
+      border: 2px solid var(--purple);
+    }
+
+    .back-link {
+      color: #000;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .site-footer {
+      background: var(--purple);
+      color: #fff;
+      padding: 3rem 3rem 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .footer-logo-script {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .footer-logo-sub {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-heading {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.45rem; }
+
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .footer-contact p {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 0 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+
+    @media (max-width: 900px) {
+      .site-header { flex-wrap: wrap; padding: 1rem 1.5rem; justify-content: center; }
+      .nav-links { order: 2; width: 100%; justify-content: center; }
+      .subject-hero, .subject-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .data-table { font-size: 0.8rem; }
+      .data-table thead th, .data-table tbody td { padding: 0.65rem 0.75rem; }
+      .site-footer { padding: 2rem 1.25rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-home">Home</a></li>
+        <li><a href="index.html#info" class="nav-info">Info</a></li>
+        <li><a href="maths.html">Maths</a></li>
+        <li><a href="english.html" class="active">English</a></li>
+        <li><a href="science.html">Science</a></li>
+      </ul>
+    </nav>
+    <div class="logo">
+      <a href="index.html">
+        <div class="logo-script"><span class="logo-bulb">💡</span> Bright Minds</div>
+        <div class="logo-sub">TUITION</div>
+      </a>
+    </div>
+    <div class="header-actions">
+      <a href="signup.html" class="user-icon user-icon--logged-out" id="user-icon" aria-label="Sign up or log in">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
+      </a>
+      <div class="menu-wrap">
+      <details class="menu-dropdown">
+        <summary class="header-btn">Menu</summary>
+        <nav class="menu-panel" aria-label="Site menu">
+          <div class="menu-panel-links">
+            <a href="index.html" class="menu-home-link">Home</a>
+            <a href="index.html#info" class="menu-info-link">Info — advantages &amp; reviews</a>
+            <a href="maths.html">Maths</a>
+            <a href="english.html">English</a>
+            <a href="science.html">Science</a>
+          </div>
+          <div class="menu-actions">
+            <a href="login.html" class="menu-action-btn menu-login">Log in</a>
+            <a href="signup.html" class="menu-action-btn menu-signup">Sign up</a>
+            <a href="book.html" class="menu-action-btn menu-book">Book now</a>
+          </div>
+        </nav>
+      </details>
+    </div>
+    </div>
+  </header>
+
+  <main class="subject-page">
+    <div class="subject-hero">
+      <div class="subject-icon">E</div>
+      <div>
+        <h1>English Tuition</h1>
+        <p>Reading, writing and comprehension that builds real fluency at every level.</p>
+      </div>
+    </div>
+
+    <div class="subject-content">
+      <h2 class="section-title">Timetable</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Year group</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>5:45 – 6:45pm</td>
+              <td>Secondary (Y7–Y9)</td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>4:30 – 5:30pm</td>
+              <td>Primary (Y3–Y6)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="section-title">Prices</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Year group</th>
+              <th>Per session</th>
+              <th>Monthly (4 sessions)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primary (Y3–Y6)</td>
+              <td>£18</td>
+              <td>£65</td>
+            </tr>
+            <tr>
+              <td>Secondary (Y7–Y9)</td>
+              <td>£22</td>
+              <td>£80</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="price-note">All sessions run for one hour in groups of up to six students. Monthly packages include a free assessment and progress report.</p>
+
+      <div class="page-actions">
+        <a href="signup.html" class="btn-primary">Sign up</a>
+        <a href="book.html" class="btn-outline">Book now</a>
+        <a href="index.html" class="back-link">← Back to home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-script">Bright Minds</div>
+        <div class="footer-logo-sub">TUITION</div>
+        <p>High-quality tuition in Maths, English and Science. Based in Small Heath, Birmingham.</p>
+      </div>
+      <div>
+        <h3 class="footer-heading">Quick links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#info">Info</a></li>
+          <li><a href="maths.html">Maths</a></li>
+          <li><a href="english.html">English</a></li>
+          <li><a href="science.html">Science</a></li>
+          <li><a href="book.html">Book now</a></li>
+          <li><a href="signup.html">Sign up</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3 class="footer-heading">Contact</h3>
+        <p>0121 396 4720</p>
+        <p>hello@brightmindstuition.co.uk</p>
+        <p>122 Coventry Road, Small Heath,<br>Birmingham, B10 0RA</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Bright Minds Tuition. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+</body>
+</html>

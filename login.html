@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — Bright Minds Tuition</title>
+  <script>
+    if (localStorage.getItem('brightMindsLoggedIn') === 'true') {
+      window.location.replace('settings.html');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', Arial, Helvetica, sans-serif; color: #000; line-height: 1.5; }
+    :root {
+      --orange: #f7941d; --orange-btn: #ff9800; --lavender: #e8daef;
+      --purple: #4e4391; --purple-dark: #5b2c6f; --green: #29a65a; --grey-light: #f2f2f2;
+    }
+    .site-header {
+      background: var(--lavender); display: flex; align-items: center;
+      justify-content: space-between; padding: 1rem 3rem; gap: 2rem; position: relative; z-index: 100;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: #000; font-size: 1.35rem; font-weight: 600; }
+    .nav-links a.nav-info { background: var(--purple); color: #fff; padding: 0.4rem 1.1rem; border-radius: 999px; font-size: 1.15rem; }
+    .nav-links a.nav-home { background: var(--orange-btn); color: #fff; padding: 0.4rem 1.1rem; border-radius: 999px; font-size: 1.15rem; }
+    .menu-panel-links a.menu-info-link { background: var(--lavender); color: var(--purple); font-weight: 800; margin: 0.25rem 0.5rem; border-radius: 8px; }
+    .menu-panel-links a.menu-home-link { background: #fff3e0; color: var(--orange-btn); font-weight: 800; margin: 0.25rem 0.5rem; border-radius: 8px; }
+    .logo { text-align: center; flex-shrink: 0; }
+    .logo a { text-decoration: none; color: inherit; }
+    .logo-script { font-family: 'Pacifico', cursive; font-size: 2rem; color: var(--purple-dark); line-height: 1.1; position: relative; }
+    .logo-bulb { position: absolute; top: -0.6rem; left: 50%; transform: translateX(-50%); font-size: 0.85rem; }
+    .logo-sub { font-size: 1.1rem; font-weight: 800; color: var(--orange-btn); letter-spacing: 0.05em; }
+    .header-btn { background: var(--orange-btn); color: #fff; border: none; border-radius: 999px; padding: 0.55rem 1.6rem; font-size: 0.95rem; font-weight: 600; font-family: inherit; cursor: pointer; }
+    .header-actions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .user-icon { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: var(--purple); color: #fff; text-decoration: none; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .user-icon svg { width: 22px; height: 22px; fill: currentColor; }
+    .user-icon--logged-out { background: #fff; color: var(--purple); border-color: var(--purple); }
+    .menu-wrap { position: relative; }
+    .menu-dropdown summary { list-style: none; }
+    .menu-dropdown summary::-webkit-details-marker { display: none; }
+    .menu-panel { position: absolute; top: calc(100% + 0.5rem); right: 0; min-width: 210px; background: #fff; border-radius: 14px; box-shadow: 0 6px 24px rgba(0,0,0,0.14); padding: 0.5rem 0 0.75rem; z-index: 200; }
+    .menu-panel-links a { display: block; padding: 0.65rem 1.25rem; text-decoration: none; color: #000; font-size: 1rem; font-weight: 600; }
+    .menu-panel-links a:hover { background: var(--grey-light); }
+    .menu-actions { margin-top: 0.35rem; padding: 0.75rem 1rem 0; border-top: 1px solid #e8e8e8; display: flex; flex-direction: column; gap: 0.5rem; }
+    .menu-action-btn { display: block; text-align: center; text-decoration: none; font-size: 0.9rem; font-weight: 700; border-radius: 999px; padding: 0.55rem 1rem; }
+    .menu-login { background: #fff; color: var(--orange-btn); border: 2px solid var(--orange-btn); }
+    .menu-signup { background: #fff; color: var(--purple); border: 2px solid var(--purple); }
+    .menu-book { background: var(--orange-btn); color: #fff; border: 2px solid var(--orange-btn); }
+    .login-page { background: var(--orange); min-height: calc(100vh - 80px); padding: 3rem 3rem 4rem; }
+    .login-inner { max-width: 480px; margin: 0 auto; }
+    .login-intro { margin-bottom: 1.75rem; }
+    .login-intro h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .login-form { background: #fff; border-radius: 18px; padding: 2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1.1rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--purple); }
+    .form-group input { font-family: inherit; font-size: 0.95rem; padding: 0.7rem 0.85rem; border: 1px solid #ccc; border-radius: 8px; }
+    .form-group input:focus { outline: 2px solid var(--purple); border-color: var(--purple); }
+    .form-submit { width: 100%; background: var(--orange-btn); color: #fff; border: none; border-radius: 999px; padding: 0.85rem 2rem; font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer; margin-top: 0.5rem; }
+    .form-submit:hover { background: #e68900; }
+    .form-note { margin-top: 1rem; font-size: 0.85rem; color: #555; text-align: center; }
+    .form-footer { margin-top: 1.25rem; text-align: center; font-size: 0.9rem; }
+    .form-footer a { color: var(--purple); font-weight: 700; }
+    .back-link { display: inline-block; margin-top: 1.5rem; color: #000; font-weight: 600; }
+    @media (max-width: 900px) {
+      .site-header { flex-wrap: wrap; padding: 1rem 1.5rem; justify-content: center; }
+      .nav-links { order: 2; width: 100%; justify-content: center; }
+      .login-page { padding: 2rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-home">Home</a></li>
+        <li><a href="index.html#info" class="nav-info">Info</a></li>
+        <li><a href="maths.html">Maths</a></li>
+        <li><a href="english.html">English</a></li>
+        <li><a href="science.html">Science</a></li>
+      </ul>
+    </nav>
+    <div class="logo">
+      <a href="index.html">
+        <div class="logo-script"><span class="logo-bulb">💡</span> Bright Minds</div>
+        <div class="logo-sub">TUITION</div>
+      </a>
+    </div>
+    <div class="header-actions">
+      <a href="login.html" class="user-icon user-icon--logged-out" id="user-icon" aria-label="Log in">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
+      </a>
+      <div class="menu-wrap">
+        <details class="menu-dropdown">
+          <summary class="header-btn">Menu</summary>
+          <nav class="menu-panel" aria-label="Site menu">
+            <div class="menu-panel-links">
+              <a href="index.html" class="menu-home-link">Home</a>
+              <a href="index.html#info" class="menu-info-link">Info — advantages &amp; reviews</a>
+              <a href="maths.html">Maths</a>
+              <a href="english.html">English</a>
+              <a href="science.html">Science</a>
+            </div>
+            <div class="menu-actions">
+              <a href="login.html" class="menu-action-btn menu-login">Log in</a>
+              <a href="signup.html" class="menu-action-btn menu-signup">Sign up</a>
+              <a href="book.html" class="menu-action-btn menu-book">Book now</a>
+            </div>
+          </nav>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <main class="login-page">
+    <div class="login-inner">
+      <div class="login-intro">
+        <h1>Log in</h1>
+        <p>Welcome back — sign in to manage your account and bookings.</p>
+      </div>
+
+      <form class="login-form" id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" required placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="Your password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="form-submit">Log in</button>
+        <p class="form-note">You'll be taken to the home page after logging in.</p>
+        <p class="form-footer">Don't have an account? <a href="signup.html">Sign up</a></p>
+      </form>
+
+      <a href="index.html" class="back-link">← Back to home</a>
+    </div>
+  </main>
+
+  <script src="auth.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var email = document.getElementById('email').value.trim().toLowerCase();
+      var password = document.getElementById('password').value;
+
+      var stored;
+      try {
+        stored = JSON.parse(localStorage.getItem('brightMindsUser') || 'null');
+      } catch (err) {
+        stored = null;
+      }
+
+      if (!stored || stored.email.toLowerCase() !== email || stored.password !== password) {
+        alert('Email or password is incorrect. Please try again or sign up for a new account.');
+        return;
+      }
+
+      localStorage.setItem('brightMindsLoggedIn', 'true');
+      window.location.href = 'index.html';
+    });
+  </script>
+
+</body>
+</html>

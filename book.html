@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Tuition — Bright Minds Tuition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      color: #000;
+      line-height: 1.5;
+    }
+
+    :root {
+      --orange: #f7941d;
+      --orange-btn: #ff9800;
+      --lavender: #e8daef;
+      --purple: #4e4391;
+      --purple-dark: #5b2c6f;
+      --green: #29a65a;
+      --grey-light: #f2f2f2;
+      --grey-row: #f5f5f5;
+    }
+
+    .site-header {
+      background: var(--lavender);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      gap: 2rem;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .nav-links a.nav-info {
+      background: var(--purple);
+      color: #fff;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-size: 1.15rem;
+    }
+
+    .nav-links a.nav-home {
+      background: var(--orange-btn);
+      color: #fff;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-size: 1.15rem;
+    }
+
+    .menu-panel-links a.menu-info-link {
+      background: var(--lavender);
+      color: var(--purple);
+      font-weight: 800;
+      margin: 0.25rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .menu-panel-links a.menu-home-link {
+      background: #fff3e0;
+      color: var(--orange-btn);
+      font-weight: 800;
+      margin: 0.25rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .logo { text-align: center; flex-shrink: 0; }
+    .logo a { text-decoration: none; color: inherit; }
+
+    .logo-script {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: var(--purple-dark);
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .logo-bulb {
+      position: absolute;
+      top: -0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+    }
+
+    .logo-sub {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--orange-btn);
+      letter-spacing: 0.05em;
+    }
+
+    .header-btn {
+      background: var(--orange-btn);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.55rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .user-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      text-decoration: none;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .user-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .user-icon:hover {
+      background: #3d3578;
+    }
+
+    .user-icon--logged-out {
+      background: #fff;
+      color: var(--purple);
+      border-color: var(--purple);
+    }
+
+    .user-icon--logged-out:hover {
+      background: var(--lavender);
+    }
+
+    .menu-wrap { position: relative; }
+    .menu-dropdown summary { list-style: none; }
+    .menu-dropdown summary::-webkit-details-marker { display: none; }
+    .menu-dropdown summary::marker { display: none; content: ''; }
+
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 210px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+      padding: 0.5rem 0 0.75rem;
+      z-index: 200;
+    }
+
+    .menu-panel-links a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .menu-panel-links a:hover { background: var(--grey-light); }
+
+    .menu-actions {
+      margin-top: 0.35rem;
+      padding: 0.75rem 1rem 0;
+      border-top: 1px solid #e8e8e8;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .menu-action-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+    }
+
+    .menu-signup {
+      background: #fff;
+      color: var(--purple);
+      border: 2px solid var(--purple);
+    }
+
+    .menu-login {
+      background: #fff;
+      color: var(--orange-btn);
+      border: 2px solid var(--orange-btn);
+    }
+
+    .menu-book {
+      background: var(--orange-btn);
+      color: #fff;
+      border: 2px solid var(--orange-btn);
+    }
+
+    .book-page {
+      background: var(--orange);
+      min-height: calc(100vh - 80px);
+      padding: 3rem 3rem 4rem;
+    }
+
+    .book-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .book-intro {
+      margin-bottom: 1.75rem;
+    }
+
+    .book-intro h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-intro p {
+      font-size: 1.05rem;
+      max-width: 540px;
+    }
+
+    .logged-in-banner {
+      background: var(--lavender);
+      color: var(--purple);
+      border-radius: 12px;
+      padding: 0.85rem 1.15rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      max-width: 540px;
+    }
+
+    .booking-form {
+      background: #fff;
+      border-radius: 18px;
+      padding: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--purple);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.7rem 0.85rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: 2px solid var(--purple);
+      border-color: var(--purple);
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .checkbox-group {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .checkbox-group legend {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 0.65rem;
+    }
+
+    .checkbox-hint {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    .checkbox-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .checkbox-options.sessions {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .session-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .session-group-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin: 0.75rem 0 0.35rem;
+    }
+
+    .session-group-label:first-child {
+      margin-top: 0;
+    }
+
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .checkbox-options.sessions .checkbox-option {
+      width: 100%;
+    }
+
+    .checkbox-option input {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--purple);
+      flex-shrink: 0;
+    }
+
+    .checkbox-option:has(input:checked) {
+      border-color: var(--purple);
+      background: var(--lavender);
+    }
+
+    .checkbox-option:has(input:disabled) {
+      opacity: 0.45;
+      cursor: not-allowed;
+      background: #f5f5f5;
+      border-color: #e0e0e0;
+    }
+
+    .checkbox-option:has(input:disabled):has(input:checked) {
+      background: #f5f5f5;
+      border-color: #e0e0e0;
+    }
+
+    .session-group.disabled .session-group-label {
+      opacity: 0.45;
+    }
+
+    .checkbox-option:focus-within {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    .form-submit {
+      margin-top: 1.5rem;
+      background: var(--orange-btn);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .form-submit:hover {
+      background: #e68900;
+    }
+
+    .form-note {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #555;
+      text-align: center;
+    }
+
+    .book-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .info-card {
+      background: var(--grey-light);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .info-card h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .info-card p,
+    .info-card li {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-card li::before {
+      content: '· ';
+      font-weight: 800;
+    }
+
+    .contact-line {
+      font-weight: 700;
+      margin-top: 0.75rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .site-footer {
+      background: var(--purple);
+      color: #fff;
+      padding: 3rem 3rem 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .footer-logo-script {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .footer-logo-sub {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-heading {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.45rem; }
+
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .footer-contact p {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 0 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+
+    @media (max-width: 900px) {
+      .site-header { flex-wrap: wrap; padding: 1rem 1.5rem; justify-content: center; }
+      .nav-links { order: 2; width: 100%; justify-content: center; }
+      .book-page { padding: 2rem 1.5rem 3rem; }
+      .book-inner { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .site-footer { padding: 2rem 1.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-home">Home</a></li>
+        <li><a href="index.html#info" class="nav-info">Info</a></li>
+        <li><a href="maths.html">Maths</a></li>
+        <li><a href="english.html">English</a></li>
+        <li><a href="science.html">Science</a></li>
+      </ul>
+    </nav>
+    <div class="logo">
+      <a href="index.html">
+        <div class="logo-script"><span class="logo-bulb">💡</span> Bright Minds</div>
+        <div class="logo-sub">TUITION</div>
+      </a>
+    </div>
+    <div class="header-actions">
+      <a href="signup.html" class="user-icon user-icon--logged-out" id="user-icon" aria-label="Sign up or log in">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
+      </a>
+      <div class="menu-wrap">
+      <details class="menu-dropdown">
+        <summary class="header-btn">Menu</summary>
+        <nav class="menu-panel" aria-label="Site menu">
+          <div class="menu-panel-links">
+            <a href="index.html" class="menu-home-link">Home</a>
+            <a href="index.html#info" class="menu-info-link">Info — advantages &amp; reviews</a>
+            <a href="maths.html">Maths</a>
+            <a href="english.html">English</a>
+            <a href="science.html">Science</a>
+          </div>
+          <div class="menu-actions">
+            <a href="login.html" class="menu-action-btn menu-login">Log in</a>
+            <a href="signup.html" class="menu-action-btn menu-signup">Sign up</a>
+            <a href="book.html" class="menu-action-btn menu-book">Book now</a>
+          </div>
+        </nav>
+      </details>
+    </div>
+    </div>
+  </header>
+
+  <main class="book-page">
+    <div class="book-inner">
+      <div>
+        <div class="book-intro">
+          <h1>Book your tuition</h1>
+          <p id="book-intro-text">Fill in the form below and we'll confirm your place within one working day. You can book more than one subject and time slot.</p>
+          <p class="logged-in-banner" id="logged-in-banner" hidden></p>
+        </div>
+
+        <form class="booking-form" action="mailto:hello@brightmindstuition.co.uk" method="post" enctype="text/plain" id="booking-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="parent-name">Parent / guardian name</label>
+              <input type="text" id="parent-name" name="Parent name" required>
+            </div>
+            <div class="form-group">
+              <label for="student-name">Student name</label>
+              <input type="text" id="student-name" name="Student name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="Email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="Phone" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="year-group">Year group</label>
+              <select id="year-group" name="Year group" required>
+                <option value="">Choose year group</option>
+                <option value="Year 3">Year 3</option>
+                <option value="Year 4">Year 4</option>
+                <option value="Year 5">Year 5</option>
+                <option value="Year 6">Year 6</option>
+                <option value="Year 7">Year 7</option>
+                <option value="Year 8">Year 8</option>
+                <option value="Year 9">Year 9</option>
+                <option value="Year 10">Year 10</option>
+                <option value="Year 11">Year 11</option>
+              </select>
+            </div>
+
+            <fieldset class="form-group full-width checkbox-group">
+              <legend>Subjects</legend>
+              <p class="checkbox-hint">Select all subjects you want to book.</p>
+              <div class="checkbox-options">
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Subjects" value="Maths" id="subject-maths" data-subject="Maths">
+                  Maths
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Subjects" value="English" id="subject-english" data-subject="English">
+                  English
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Subjects" value="Science" id="subject-science" data-subject="Science">
+                  Science
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-group full-width checkbox-group">
+              <legend>Preferred sessions</legend>
+              <p class="checkbox-hint">Choose your subjects first — only then can you pick times for those subjects.</p>
+              <div class="checkbox-options sessions">
+                <div class="session-group" data-subject="Maths">
+                <p class="session-group-label">Maths</p>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Sessions" data-subject="Maths" value="Maths — Monday 4:30–5:30pm (Primary Y3–Y6)" disabled>
+                  Monday 4:30–5:30pm · Primary (Y3–Y6)
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Sessions" data-subject="Maths" value="Maths — Wednesday 5:00–6:00pm (GCSE)" disabled>
+                  Wednesday 5:00–6:00pm · GCSE
+                </label>
+                </div>
+                <div class="session-group" data-subject="English">
+                <p class="session-group-label">English</p>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Sessions" data-subject="English" value="English — Monday 5:45–6:45pm (Y7–Y9)" disabled>
+                  Monday 5:45–6:45pm · Secondary (Y7–Y9)
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Sessions" data-subject="English" value="English — Thursday 4:30–5:30pm (Primary Y3–Y6)" disabled>
+                  Thursday 4:30–5:30pm · Primary (Y3–Y6)
+                </label>
+                </div>
+                <div class="session-group" data-subject="Science">
+                <p class="session-group-label">Science</p>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Sessions" data-subject="Science" value="Science — Tuesday 4:30–5:30pm (Primary Y3–Y6)" disabled>
+                  Tuesday 4:30–5:30pm · Primary (Y3–Y6)
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="Sessions" data-subject="Science" value="Science — Saturday 10:00–11:30am (GCSE)" disabled>
+                  Saturday 10:00–11:30am · GCSE
+                </label>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-group full-width">
+              <label for="notes">Anything we should know?</label>
+              <textarea id="notes" name="Notes" placeholder="Tell us about goals, SEN support, or preferred start date…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="form-submit">Send booking request</button>
+          <p class="form-note">Submitting opens your email app with the details filled in. You can also call us on 0121 396 4720.</p>
+        </form>
+
+        <a href="index.html" class="back-link">← Back to home</a>
+      </div>
+
+      <aside class="book-sidebar">
+        <div class="info-card">
+          <h2>What happens next?</h2>
+          <ul>
+            <li>We review your booking request</li>
+            <li>We confirm your session by email or phone</li>
+            <li>Your child attends a free first assessment</li>
+            <li>Regular sessions begin the following week</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h2>Need help?</h2>
+          <p>Not sure which sessions to pick? Select all that might work — we'll help you choose the right ones.</p>
+          <p class="contact-line">0121 396 4720</p>
+          <p class="contact-line">hello@brightmindstuition.co.uk</p>
+          <p>122 Coventry Road, Small Heath, Birmingham, B10 0RA</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-script">Bright Minds</div>
+        <div class="footer-logo-sub">TUITION</div>
+        <p>High-quality tuition in Maths, English and Science. Based in Small Heath, Birmingham.</p>
+      </div>
+      <div>
+        <h3 class="footer-heading">Quick links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#info">Info</a></li>
+          <li><a href="maths.html">Maths</a></li>
+          <li><a href="english.html">English</a></li>
+          <li><a href="science.html">Science</a></li>
+          <li><a href="book.html">Book now</a></li>
+          <li><a href="signup.html">Sign up</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3 class="footer-heading">Contact</h3>
+        <p>0121 396 4720</p>
+        <p>hello@brightmindstuition.co.uk</p>
+        <p>122 Coventry Road, Small Heath,<br>Birmingham, B10 0RA</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Bright Minds Tuition. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('booking-form');
+      var subjectInputs = form.querySelectorAll('input[name="Subjects"]');
+      var sessionInputs = form.querySelectorAll('input[name="Sessions"]');
+      var loggedInBanner = document.getElementById('logged-in-banner');
+      var introText = document.getElementById('book-intro-text');
+
+      if (localStorage.getItem('brightMindsLoggedIn') === 'true') {
+        try {
+          var user = JSON.parse(localStorage.getItem('brightMindsUser') || '{}');
+          if (user.fullName) {
+            loggedInBanner.hidden = false;
+            loggedInBanner.textContent = 'Welcome back, ' + user.fullName + '! You\'re logged in — complete your booking below.';
+            introText.textContent = 'Your details have been filled in from your account. Choose your subjects and times below.';
+
+            if (user.accountType === 'Student') {
+              document.getElementById('student-name').value = user.fullName;
+            } else {
+              document.getElementById('parent-name').value = user.fullName;
+            }
+            if (user.email) document.getElementById('email').value = user.email;
+            if (user.phone) document.getElementById('phone').value = user.phone;
+          }
+        } catch (err) {}
+      }
+
+      function updateSessions() {
+        var selected = {};
+        subjectInputs.forEach(function (input) {
+          selected[input.dataset.subject] = input.checked;
+        });
+
+        sessionInputs.forEach(function (input) {
+          var subject = input.dataset.subject;
+          var enabled = !!selected[subject];
+          input.disabled = !enabled;
+          if (!enabled) input.checked = false;
+        });
+
+        form.querySelectorAll('.session-group').forEach(function (group) {
+          var subject = group.dataset.subject;
+          group.classList.toggle('disabled', !selected[subject]);
+        });
+      }
+
+      subjectInputs.forEach(function (input) {
+        input.addEventListener('change', updateSessions);
+      });
+
+      sessionInputs.forEach(function (input) {
+        input.addEventListener('click', function (e) {
+          if (input.disabled) e.preventDefault();
+        });
+      });
+
+      form.addEventListener('submit', function (e) {
+        var subjects = form.querySelectorAll('input[name="Subjects"]:checked');
+        var sessions = form.querySelectorAll('input[name="Sessions"]:checked');
+        if (!subjects.length) {
+          e.preventDefault();
+          alert('Please select at least one subject.');
+          return;
+        }
+        if (!sessions.length) {
+          e.preventDefault();
+          alert('Please select at least one session time for your chosen subject(s).');
+        }
+      });
+
+      updateSessions();
+    })();
+  </script>
+
+</body>
+</html>
