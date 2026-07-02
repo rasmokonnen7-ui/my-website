@@ -4,11 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up — Bright Minds Tuition</title>
-  <script>
-    if (localStorage.getItem('brightMindsLoggedIn') === 'true') {
-      window.location.replace('settings.html');
-    }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
@@ -647,13 +642,21 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="auth.js"></script>
   <script>
     (function () {
       var form = document.getElementById('signup-form');
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var supabase = window.supabaseClient;
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+        if (!supabase) {
+          alert('Unable to connect. Please refresh the page and try again.');
+          return;
+        }
 
         var fullName = document.getElementById('full-name').value.trim();
         var email = document.getElementById('email').value.trim();
@@ -667,18 +670,32 @@
           return;
         }
 
-        var user = {
-          fullName: fullName,
+        submitBtn.disabled = true;
+
+        supabase.auth.signUp({
           email: email,
-          phone: phone,
-          accountType: accountType,
-          password: password
-        };
-
-        localStorage.setItem('brightMindsUser', JSON.stringify(user));
-        localStorage.setItem('brightMindsLoggedIn', 'true');
-
-        window.location.href = 'index.html';
+          password: password,
+          options: {
+            data: {
+              full_name: fullName,
+              phone: phone,
+              account_type: accountType
+            }
+          }
+        }).then(function (result) {
+          if (result.error) {
+            alert(result.error.message || 'Could not create account. Please try again.');
+            return;
+          }
+          if (result.data.session) {
+            window.location.href = 'index.html';
+          } else {
+            alert('Account created! Check your email to confirm your address, then log in.');
+            window.location.href = 'login.html';
+          }
+        }).finally(function () {
+          submitBtn.disabled = false;
+        });
       });
     })();
   </script>

@@ -651,17 +651,17 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="auth.js"></script>
   <script src="contact.js"></script>
   <script>
-    (function () {
-      if (localStorage.getItem('brightMindsLoggedIn') !== 'true') return;
-      try {
-        var user = JSON.parse(localStorage.getItem('brightMindsUser') || '{}');
-        if (user.fullName) document.getElementById('contact-name').value = user.fullName;
-        if (user.email) document.getElementById('contact-email').value = user.email;
-      } catch (err) {}
-    })();
+    document.addEventListener('brightminds:auth', function (e) {
+      if (!e.detail.loggedIn || !e.detail.user) return;
+      var profile = window.getProfileFromUser(e.detail.user);
+      if (!profile) return;
+      if (profile.fullName) document.getElementById('contact-name').value = profile.fullName;
+      if (profile.email) document.getElementById('contact-email').value = profile.email;
+    });
   </script>
 </body>
 </html>

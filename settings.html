@@ -558,52 +558,89 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="auth.js"></script>
   <script>
     (function () {
-      if (localStorage.getItem('brightMindsLoggedIn') !== 'true') {
-        window.location.href = 'signup.html';
+      var supabase = window.supabaseClient;
+      var icon = document.getElementById('user-icon');
+      var saveBtn = document.querySelector('#settings-form button[type="submit"]');
+      var currentUser = null;
+
+      if (!supabase) {
+        window.location.href = 'login.html';
         return;
       }
 
-      var user = {};
-      try {
-        user = JSON.parse(localStorage.getItem('brightMindsUser') || '{}');
-      } catch (err) {}
+      supabase.auth.getSession().then(function (result) {
+        if (!result.data.session) {
+          window.location.href = 'login.html';
+          return;
+        }
+        currentUser = result.data.session.user;
+        loadProfile(currentUser);
+      });
 
-      document.getElementById('full-name').value = user.fullName || '';
-      document.getElementById('email').value = user.email || '';
-      document.getElementById('phone').value = user.phone || '';
-      document.getElementById('account-type').value = user.accountType || 'Parent / guardian';
+      function loadProfile(user) {
+        var profile = window.getProfileFromUser(user);
+        document.getElementById('full-name').value = profile.fullName;
+        document.getElementById('email').value = profile.email;
+        document.getElementById('phone').value = profile.phone;
+        document.getElementById('account-type').value = profile.accountType;
 
-      var icon = document.getElementById('user-icon');
-      if (user.fullName) {
-        icon.title = 'Logged in as ' + user.fullName;
-        icon.setAttribute('aria-label', 'Account settings: ' + user.fullName);
+        if (profile.fullName && icon) {
+          icon.title = 'Logged in as ' + profile.fullName;
+          icon.setAttribute('aria-label', 'Account settings: ' + profile.fullName);
+        }
       }
 
       document.getElementById('settings-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        var updated = {
-          fullName: document.getElementById('full-name').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          phone: document.getElementById('phone').value.trim(),
-          accountType: document.getElementById('account-type').value,
-          password: user.password || ''
-        };
-        localStorage.setItem('brightMindsUser', JSON.stringify(updated));
+        if (!currentUser) return;
+
+        var fullName = document.getElementById('full-name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var accountType = document.getElementById('account-type').value;
         var msg = document.getElementById('save-message');
-        msg.hidden = false;
-        if (updated.fullName) {
-          icon.title = 'Logged in as ' + updated.fullName;
-          icon.setAttribute('aria-label', 'Account settings: ' + updated.fullName);
+
+        var updates = {
+          data: {
+            full_name: fullName,
+            phone: phone,
+            account_type: accountType
+          }
+        };
+
+        if (email !== currentUser.email) {
+          updates.email = email;
         }
+
+        saveBtn.disabled = true;
+
+        supabase.auth.updateUser(updates).then(function (result) {
+          if (result.error) {
+            alert(result.error.message || 'Could not save your changes. Please try again.');
+            return;
+          }
+          currentUser = result.data.user;
+          loadProfile(currentUser);
+          msg.hidden = false;
+          if (updates.email) {
+            msg.textContent = 'Saved! If you changed your email, check your inbox to confirm the new address.';
+          } else {
+            msg.textContent = 'Your changes have been saved.';
+          }
+        }).finally(function () {
+          saveBtn.disabled = false;
+        });
       });
 
       document.getElementById('logout-btn').addEventListener('click', function () {
-        localStorage.removeItem('brightMindsLoggedIn');
-        localStorage.removeItem('brightMindsUser');
-        window.location.href = 'index.html';
+        supabase.auth.signOut().then(function () {
+          window.location.href = 'index.html';
+        });
       });
     })();
   </script>

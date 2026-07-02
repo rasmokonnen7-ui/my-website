@@ -446,6 +446,15 @@
       text-align: center;
     }
 
+    .booking-form-note {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--purple);
+      text-align: center;
+    }
+
+    .booking-form-note.is-error { color: #b00020; }
+
     .book-sidebar {
       display: flex;
       flex-direction: column;
@@ -634,7 +643,7 @@
           <p class="logged-in-banner" id="logged-in-banner" hidden></p>
         </div>
 
-        <form class="booking-form" action="mailto:hello@brightmindstuition.co.uk" method="post" enctype="text/plain" id="booking-form">
+        <form class="booking-form" id="booking-form">
           <div class="form-grid">
             <div class="form-group">
               <label for="parent-name">Parent / guardian name</label>
@@ -732,7 +741,8 @@
             </div>
           </div>
           <button type="submit" class="form-submit">Send booking request</button>
-          <p class="form-note">Submitting opens your email app with the details filled in. You can also call us on 0121 396 4720.</p>
+          <p class="booking-form-note" id="booking-form-note" hidden></p>
+          <p class="form-note">We'll review your request and confirm by email or phone within one working day. You can also call us on 0121 396 4720.</p>
         </form>
 
         <a href="index.html" class="back-link">← Back to home</a>
@@ -791,80 +801,10 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="auth.js"></script>
-  <script>
-    (function () {
-      var form = document.getElementById('booking-form');
-      var subjectInputs = form.querySelectorAll('input[name="Subjects"]');
-      var sessionInputs = form.querySelectorAll('input[name="Sessions"]');
-      var loggedInBanner = document.getElementById('logged-in-banner');
-      var introText = document.getElementById('book-intro-text');
-
-      if (localStorage.getItem('brightMindsLoggedIn') === 'true') {
-        try {
-          var user = JSON.parse(localStorage.getItem('brightMindsUser') || '{}');
-          if (user.fullName) {
-            loggedInBanner.hidden = false;
-            loggedInBanner.textContent = 'Welcome back, ' + user.fullName + '! You\'re logged in — complete your booking below.';
-            introText.textContent = 'Your details have been filled in from your account. Choose your subjects and times below.';
-
-            if (user.accountType === 'Student') {
-              document.getElementById('student-name').value = user.fullName;
-            } else {
-              document.getElementById('parent-name').value = user.fullName;
-            }
-            if (user.email) document.getElementById('email').value = user.email;
-            if (user.phone) document.getElementById('phone').value = user.phone;
-          }
-        } catch (err) {}
-      }
-
-      function updateSessions() {
-        var selected = {};
-        subjectInputs.forEach(function (input) {
-          selected[input.dataset.subject] = input.checked;
-        });
-
-        sessionInputs.forEach(function (input) {
-          var subject = input.dataset.subject;
-          var enabled = !!selected[subject];
-          input.disabled = !enabled;
-          if (!enabled) input.checked = false;
-        });
-
-        form.querySelectorAll('.session-group').forEach(function (group) {
-          var subject = group.dataset.subject;
-          group.classList.toggle('disabled', !selected[subject]);
-        });
-      }
-
-      subjectInputs.forEach(function (input) {
-        input.addEventListener('change', updateSessions);
-      });
-
-      sessionInputs.forEach(function (input) {
-        input.addEventListener('click', function (e) {
-          if (input.disabled) e.preventDefault();
-        });
-      });
-
-      form.addEventListener('submit', function (e) {
-        var subjects = form.querySelectorAll('input[name="Subjects"]:checked');
-        var sessions = form.querySelectorAll('input[name="Sessions"]:checked');
-        if (!subjects.length) {
-          e.preventDefault();
-          alert('Please select at least one subject.');
-          return;
-        }
-        if (!sessions.length) {
-          e.preventDefault();
-          alert('Please select at least one session time for your chosen subject(s).');
-        }
-      });
-
-      updateSessions();
-    })();
-  </script>
+  <script src="book.js"></script>
 
 </body>
 </html>

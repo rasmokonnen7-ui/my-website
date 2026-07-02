@@ -1,11 +1,8 @@
 (function () {
-  var SUPABASE_URL = 'https://dfywrmguseycngbyibfk.supabase.co';
-  var SUPABASE_KEY = 'sb_publishable_GMctEBefaTWILQol3nWBOw_ZjIZQ-EZ';
-
   var form = document.getElementById('contact-form');
-  if (!form || !window.supabase) return;
+  var supabase = window.supabaseClient;
+  if (!form || !supabase) return;
 
-  var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   var note = document.getElementById('contact-form-note');
   var submitBtn = form.querySelector('button[type="submit"]');
 

@@ -4,11 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log In — Bright Minds Tuition</title>
-  <script>
-    if (localStorage.getItem('brightMindsLoggedIn') === 'true') {
-      window.location.replace('settings.html');
-    }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
@@ -142,29 +137,40 @@
     </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="auth.js"></script>
   <script>
-    document.getElementById('login-form').addEventListener('submit', function (e) {
-      e.preventDefault();
+    (function () {
+      var form = document.getElementById('login-form');
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var supabase = window.supabaseClient;
 
-      var email = document.getElementById('email').value.trim().toLowerCase();
-      var password = document.getElementById('password').value;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!supabase) {
+          alert('Unable to connect. Please refresh the page and try again.');
+          return;
+        }
 
-      var stored;
-      try {
-        stored = JSON.parse(localStorage.getItem('brightMindsUser') || 'null');
-      } catch (err) {
-        stored = null;
-      }
+        var email = document.getElementById('email').value.trim();
+        var password = document.getElementById('password').value;
 
-      if (!stored || stored.email.toLowerCase() !== email || stored.password !== password) {
-        alert('Email or password is incorrect. Please try again or sign up for a new account.');
-        return;
-      }
+        submitBtn.disabled = true;
 
-      localStorage.setItem('brightMindsLoggedIn', 'true');
-      window.location.href = 'index.html';
-    });
+        supabase.auth.signInWithPassword({ email: email, password: password })
+          .then(function (result) {
+            if (result.error) {
+              alert(result.error.message || 'Email or password is incorrect. Please try again or sign up for a new account.');
+              return;
+            }
+            window.location.href = 'index.html';
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+          });
+      });
+    })();
   </script>
 
 </body>
