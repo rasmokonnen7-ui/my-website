@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up — Bright Minds Tuition</title>
-  <script>
-    if (localStorage.getItem('brightMindsLoggedIn') === 'true') {
-      window.location.replace('settings.html');
-    }
-  </script>
+  <title>Get in touch — Bright Minds Tuition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
@@ -29,6 +24,7 @@
       --purple-dark: #5b2c6f;
       --green: #29a65a;
       --grey-light: #f2f2f2;
+      --grey-row: #f5f5f5;
     }
 
     .site-header {
@@ -65,6 +61,10 @@
       padding: 0.4rem 1.1rem;
       border-radius: 999px;
       font-size: 1.15rem;
+    }
+
+    .nav-links a.nav-contact.active {
+      color: var(--purple);
     }
 
     .menu-panel-links a.menu-info-link {
@@ -150,9 +150,7 @@
       fill: currentColor;
     }
 
-    .user-icon:hover {
-      background: #3d3578;
-    }
+    .user-icon:hover { background: #3d3578; }
 
     .user-icon--logged-out {
       background: #fff;
@@ -160,9 +158,7 @@
       border-color: var(--purple);
     }
 
-    .user-icon--logged-out:hover {
-      background: var(--lavender);
-    }
+    .user-icon--logged-out:hover { background: var(--lavender); }
 
     .menu-wrap { position: relative; }
     .menu-dropdown summary { list-style: none; }
@@ -223,69 +219,68 @@
       border: 2px solid var(--orange-btn);
     }
 
-    .menu-login:hover {
-      background: #fff3e0;
-    }
-
     .menu-book {
       background: var(--orange-btn);
       color: #fff;
       border: 2px solid var(--orange-btn);
     }
 
-    .signup-page {
+    .contact-page {
       background: var(--orange);
       min-height: calc(100vh - 80px);
       padding: 3rem 3rem 4rem;
     }
 
-    .signup-inner {
+    .contact-inner {
       max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 320px;
+      grid-template-columns: 1fr 340px;
       gap: 2rem;
       align-items: start;
     }
 
-    .signup-intro {
+    .contact-intro {
       margin-bottom: 1.75rem;
     }
 
-    .signup-intro h1 {
+    .contact-intro h1 {
       font-size: clamp(1.8rem, 4vw, 2.5rem);
       font-weight: 800;
       margin-bottom: 0.5rem;
     }
 
-    .signup-intro p {
+    .contact-intro p {
       font-size: 1.05rem;
-      max-width: 540px;
+      max-width: 560px;
     }
 
-    .signup-form {
+    .contact-form-card {
       background: #fff;
       border-radius: 18px;
       padding: 2rem;
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
+    .contact-form-card h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--purple);
+      margin-bottom: 1.25rem;
     }
 
-    .form-group {
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-form .form-group {
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
     }
 
-    .form-group.full-width {
-      grid-column: 1 / -1;
-    }
-
-    .form-group label {
+    .contact-form label {
       font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 0.06em;
@@ -293,8 +288,8 @@
       color: var(--purple);
     }
 
-    .form-group input,
-    .form-group select {
+    .contact-form input,
+    .contact-form textarea {
       font-family: inherit;
       font-size: 0.95rem;
       padding: 0.7rem 0.85rem;
@@ -303,37 +298,19 @@
       background: #fff;
     }
 
-    .form-group input:focus,
-    .form-group select:focus {
+    .contact-form input:focus,
+    .contact-form textarea:focus {
       outline: 2px solid var(--purple);
       border-color: var(--purple);
     }
 
-    .checkbox-group {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.65rem;
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 140px;
     }
 
-    .checkbox-group input {
-      margin-top: 0.2rem;
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
-    }
-
-    .checkbox-group label {
-      font-size: 0.9rem;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      color: #333;
-      line-height: 1.45;
-    }
-
-    .form-submit {
-      margin-top: 1.5rem;
+    .contact-submit {
+      align-self: flex-start;
       background: var(--purple);
       color: #fff;
       border: none;
@@ -343,72 +320,109 @@
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      width: 100%;
+      margin-top: 0.25rem;
     }
 
-    .form-submit:hover {
-      background: #3d3578;
+    .contact-submit:hover:not(:disabled) { background: var(--purple-dark); }
+
+    .contact-submit:disabled {
+      opacity: 0.7;
+      cursor: wait;
     }
 
-    .form-note {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: #555;
-      text-align: center;
-    }
-
-    .form-footer {
-      margin-top: 1.25rem;
-      text-align: center;
+    .contact-form-note {
       font-size: 0.9rem;
-    }
-
-    .form-footer a {
+      font-weight: 600;
       color: var(--purple);
-      font-weight: 700;
+      margin-top: 0.25rem;
     }
 
-    .signup-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .info-card {
-      background: var(--grey-light);
-      border-radius: 16px;
-      padding: 1.5rem;
-    }
-
-    .info-card h2 {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin-bottom: 0.75rem;
-    }
-
-    .info-card p,
-    .info-card li {
-      font-size: 0.9rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .info-card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .info-card li::before {
-      content: '✓ ';
-      color: var(--green);
-      font-weight: 800;
-    }
+    .contact-form-note.is-error { color: #b00020; }
 
     .back-link {
       display: inline-block;
       margin-top: 1.5rem;
       color: #000;
       font-weight: 600;
+      text-decoration: none;
     }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .contact-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .contact-card {
+      background: var(--grey-light);
+      border-radius: 16px;
+      padding: 1.75rem;
+    }
+
+    .contact-card h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .contact-item {
+      margin-bottom: 1.15rem;
+    }
+
+    .contact-item:last-child { margin-bottom: 0; }
+
+    .contact-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--orange-btn);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-value {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .contact-value a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .contact-value a:hover { text-decoration: underline; }
+
+    .hours-box {
+      margin-top: 0.35rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .contact-card p {
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .contact-card .book-link {
+      display: inline-block;
+      margin-top: 0.85rem;
+      background: var(--orange-btn);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+    }
+
+    .contact-card .book-link:hover { background: #e68900; }
 
     .site-footer {
       background: var(--purple);
@@ -489,10 +503,9 @@
 
     @media (max-width: 900px) {
       .site-header { flex-wrap: wrap; padding: 1rem 1.5rem; justify-content: center; }
-      .nav-links { order: 2; width: 100%; justify-content: center; }
-      .signup-page { padding: 2rem 1.5rem 3rem; }
-      .signup-inner { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
+      .nav-links { order: 2; width: 100%; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+      .contact-page { padding: 2rem 1.5rem 3rem; }
+      .contact-inner { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
       .site-footer { padding: 2rem 1.5rem 0; }
     }
@@ -508,6 +521,7 @@
         <li><a href="maths.html">Maths</a></li>
         <li><a href="english.html">English</a></li>
         <li><a href="science.html">Science</a></li>
+        <li><a href="contact.html" class="nav-contact active">Contact</a></li>
       </ul>
     </nav>
     <div class="logo">
@@ -521,95 +535,84 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
       </a>
       <div class="menu-wrap">
-      <details class="menu-dropdown">
-        <summary class="header-btn">Menu</summary>
-        <nav class="menu-panel" aria-label="Site menu">
-          <div class="menu-panel-links">
-            <a href="index.html" class="menu-home-link">Home</a>
-            <a href="index.html#info" class="menu-info-link">Info — advantages &amp; reviews</a>
-            <a href="maths.html">Maths</a>
-            <a href="english.html">English</a>
-            <a href="science.html">Science</a>
-            <a href="contact.html">Get in touch</a>
-          </div>
-          <div class="menu-actions">
-            <a href="login.html" class="menu-action-btn menu-login">Log in</a>
-            <a href="signup.html" class="menu-action-btn menu-signup">Sign up</a>
-            <a href="book.html" class="menu-action-btn menu-book">Book now</a>
-          </div>
-        </nav>
-      </details>
-    </div>
+        <details class="menu-dropdown">
+          <summary class="header-btn">Menu</summary>
+          <nav class="menu-panel" aria-label="Site menu">
+            <div class="menu-panel-links">
+              <a href="index.html" class="menu-home-link">Home</a>
+              <a href="index.html#info" class="menu-info-link">Info — advantages &amp; reviews</a>
+              <a href="maths.html">Maths</a>
+              <a href="english.html">English</a>
+              <a href="science.html">Science</a>
+              <a href="contact.html">Get in touch</a>
+            </div>
+            <div class="menu-actions">
+              <a href="login.html" class="menu-action-btn menu-login">Log in</a>
+              <a href="signup.html" class="menu-action-btn menu-signup">Sign up</a>
+              <a href="book.html" class="menu-action-btn menu-book">Book now</a>
+            </div>
+          </nav>
+        </details>
+      </div>
     </div>
   </header>
 
-  <main class="signup-page">
-    <div class="signup-inner">
+  <main class="contact-page">
+    <div class="contact-inner">
       <div>
-        <div class="signup-intro">
-          <h1>Create your account</h1>
-          <p>Sign up to manage bookings, track progress, and stay in touch with your tutor — all in one place.</p>
+        <div class="contact-intro">
+          <h1>Get in touch</h1>
+          <p>Have a question about sessions, prices or availability? Send us a message and we'll reply within one working day. You can also call or visit us in Small Heath.</p>
         </div>
 
-        <form class="signup-form" id="signup-form" novalidate>
-          <div class="form-grid">
-            <div class="form-group full-width">
-              <label for="full-name">Full name</label>
-              <input type="text" id="full-name" name="Full name" required placeholder="Your name">
+        <div class="contact-form-card">
+          <h2>Send us a message</h2>
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="contact-name">Name</label>
+              <input type="text" id="contact-name" name="name" required autocomplete="name">
             </div>
             <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" id="email" name="Email" required placeholder="you@example.com">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" name="email" required autocomplete="email">
             </div>
             <div class="form-group">
-              <label for="phone">Phone number</label>
-              <input type="tel" id="phone" name="Phone" required placeholder="07XXX XXXXXX">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" required placeholder="Ask about subjects, year groups, or when to start…"></textarea>
             </div>
-            <div class="form-group full-width">
-              <label for="account-type">I am a</label>
-              <select id="account-type" name="Account type" required>
-                <option value="">Select account type</option>
-                <option value="Parent / guardian">Parent / guardian</option>
-                <option value="Student">Student</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" minlength="8" required placeholder="At least 8 characters" autocomplete="new-password">
-            </div>
-            <div class="form-group">
-              <label for="confirm-password">Confirm password</label>
-              <input type="password" id="confirm-password" minlength="8" required placeholder="Re-enter password" autocomplete="new-password">
-            </div>
-            <div class="checkbox-group">
-              <input type="checkbox" id="terms" name="Agreed to terms" value="Yes" required>
-              <label for="terms">I agree to the Bright Minds Tuition terms of service and privacy policy.</label>
-            </div>
-          </div>
-          <button type="submit" class="form-submit">Create account</button>
-          <p class="form-note">Creating an account will log you in and take you to the home page.</p>
-          <p class="form-footer">Already have an account? <a href="login.html">Log in</a></p>
-          <p class="form-footer">Ready to book a session? <a href="book.html">Book now</a></p>
-        </form>
+            <button type="submit" class="contact-submit">Send message</button>
+            <p class="contact-form-note" id="contact-form-note" hidden></p>
+          </form>
+        </div>
 
         <a href="index.html" class="back-link">← Back to home</a>
       </div>
 
-      <aside class="signup-sidebar">
-        <div class="info-card">
-          <h2>Why create an account?</h2>
-          <ul>
-            <li>Book and manage tuition sessions</li>
-            <li>View your child's timetable</li>
-            <li>Receive progress updates from tutors</li>
-            <li>Get reminders before each session</li>
-          </ul>
+      <aside class="contact-sidebar">
+        <div class="contact-card">
+          <h2>Contact details</h2>
+          <div class="contact-item">
+            <div class="contact-label">Phone</div>
+            <div class="contact-value"><a href="tel:01213964720">0121 396 4720</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <div class="contact-value"><a href="mailto:hello@brightmindstuition.co.uk">hello@brightmindstuition.co.uk</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Address</div>
+            <div class="contact-value">122 Coventry Road, Small Heath,<br>Birmingham, B10 0RA</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Hours</div>
+            <div class="hours-box">Mon–Thu 4:30–7pm · Sat mornings</div>
+          </div>
         </div>
-        <div class="info-card">
-          <h2>Need help signing up?</h2>
-          <p>Call us and we'll create your account over the phone.</p>
-          <p><strong>0121 396 4720</strong></p>
-          <p>hello@brightmindstuition.co.uk</p>
+
+        <div class="contact-card">
+          <h2>Ready to book?</h2>
+          <p>If you already know which subjects and times you want, you can send a booking request straight away.</p>
+          <a href="book.html" class="book-link">Book tuition</a>
         </div>
       </aside>
     </div>
@@ -647,41 +650,18 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="auth.js"></script>
+  <script src="contact.js"></script>
   <script>
     (function () {
-      var form = document.getElementById('signup-form');
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        var fullName = document.getElementById('full-name').value.trim();
-        var email = document.getElementById('email').value.trim();
-        var phone = document.getElementById('phone').value.trim();
-        var accountType = document.getElementById('account-type').value;
-        var password = document.getElementById('password').value;
-        var confirmPassword = document.getElementById('confirm-password').value;
-
-        if (password !== confirmPassword) {
-          alert('Passwords do not match. Please try again.');
-          return;
-        }
-
-        var user = {
-          fullName: fullName,
-          email: email,
-          phone: phone,
-          accountType: accountType,
-          password: password
-        };
-
-        localStorage.setItem('brightMindsUser', JSON.stringify(user));
-        localStorage.setItem('brightMindsLoggedIn', 'true');
-
-        window.location.href = 'index.html';
-      });
+      if (localStorage.getItem('brightMindsLoggedIn') !== 'true') return;
+      try {
+        var user = JSON.parse(localStorage.getItem('brightMindsUser') || '{}');
+        if (user.fullName) document.getElementById('contact-name').value = user.fullName;
+        if (user.email) document.getElementById('contact-email').value = user.email;
+      } catch (err) {}
     })();
   </script>
-
 </body>
 </html>
