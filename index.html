@@ -1150,129 +1150,17 @@
       opacity: 0.75;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .site-header {
-        flex-wrap: wrap;
-        padding: 1rem 1.5rem;
-        justify-content: center;
-      }
-
-      .nav-links {
-        order: 2;
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero-inner {
-        min-height: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding-top: 0;
-      }
-
-      .hero-img {
-        position: static;
-        width: 100% !important;
-        max-width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 10;
-      }
-
-      .hero-content {
-        position: static;
-        transform: none;
-        max-width: 100%;
-        order: -1;
-      }
-
-      .why-top {
-        grid-template-columns: 1fr;
-      }
-
-      .why-images {
-        min-height: 300px;
-      }
-
-      .subject-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .info-box-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .info-tabs {
-        padding: 0 1rem 1.5rem;
-      }
-
-      .info-tab {
-        flex: 1 1 auto;
-        text-align: center;
-        min-width: 140px;
-      }
-
-      .info-bottom {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero,
-      .why-section,
-      .info-box-section,
-      .info-section {
-        padding: 2rem 1.25rem;
-      }
-
-      .info-box-panel {
-        padding-bottom: 1.75rem;
-      }
-
-      .info-box-button {
-        padding: 1.5rem 1.25rem;
-      }
-
-      .info-box-button-cta {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      .why-img-left,
-      .why-img-right {
-        position: static;
-        max-width: 100%;
-      }
-
-      .why-images {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        min-height: auto;
-      }
-
-      .schedule-table {
-        font-size: 0.8rem;
-      }
-
-      .schedule-table thead th,
-      .schedule-table tbody td {
-        padding: 0.65rem 0.75rem;
-      }
-
-      .site-footer {
-        padding: 2rem 1.25rem 0;
-      }
+    /* Mobile-only home content — toggled in mobile.css */
+    .hero-title-short,
+    .hero-lead-mobile,
+    .schedule-mobile,
+    .mobile-message-btn {
+      display: none;
     }
   </style>
+  <link rel="stylesheet" href="mobile.css">
 </head>
-<body>
+<body class="page-home">
 
   <a class="skip-link" href="#info">Skip to info</a>
 
@@ -1329,8 +1217,12 @@
       <img class="hero-img hero-img-2" src="images/hero-2.jpg" alt="Children learning together on the floor">
       <img class="hero-img hero-img-3" src="images/hero-3.jpg" alt="Hand writing notes with a pen">
       <div class="hero-content">
-        <h1>Unlock your potential and find the right path for you</h1>
-        <p>Bright Minds Tuition provides high-quality tuition in Maths, English and Science. The aim is to help every student improve confidence and academic performance in a safe, supportive environment, with small-group learning so each one gets the attention they need to thrive.</p>
+        <h1>
+          <span class="hero-title-full">Unlock your potential and find the right path for you</span>
+          <span class="hero-title-short">Unlock your potential</span>
+        </h1>
+        <p class="hero-lead-desktop">Bright Minds Tuition provides high-quality tuition in Maths, English and Science. The aim is to help every student improve confidence and academic performance in a safe, supportive environment, with small-group learning so each one gets the attention they need to thrive.</p>
+        <p class="hero-lead-mobile">Expert Maths, English and Science tuition in small groups — Small Heath, Birmingham.</p>
         <div class="hero-actions">
           <a href="book.html" class="hero-cta">Book now</a>
           <a href="#info" class="hero-info-link">See how it works</a>
@@ -1469,6 +1361,19 @@
 
   <!-- ═══ SECTION 3: SCHEDULE + CONTACT ═══ -->
   <section class="info-section">
+    <div class="schedule-mobile">
+      <h2 class="schedule-mobile-title">Weekly sessions</h2>
+      <ul class="schedule-mobile-list">
+        <li><strong>Mon</strong> <span class="subject-maths">Maths</span> 4:30pm · Y3–Y6</li>
+        <li><strong>Mon</strong> <span class="subject-english">English</span> 5:45pm · Y7–Y9</li>
+        <li><strong>Tue</strong> <span class="subject-science">Science</span> 4:30pm · Y3–Y6</li>
+        <li><strong>Wed</strong> <span class="subject-maths">Maths</span> 5:00pm · GCSE</li>
+        <li><strong>Thu</strong> <span class="subject-english">English</span> 4:30pm · Y3–Y6</li>
+        <li><strong>Sat</strong> <span class="subject-science">Science</span> 10:00am · GCSE</li>
+      </ul>
+      <a href="book.html" class="schedule-mobile-book">Book a session</a>
+    </div>
+
     <div class="schedule-wrap">
       <table class="schedule-table">
         <thead>
@@ -1538,6 +1443,7 @@
           <div class="contact-label">Hours</div>
           <div class="hours-box">Mon–Thu 4:30–7pm · Sat mornings</div>
         </div>
+        <a href="contact.html" class="mobile-message-btn">Send us a message</a>
       </aside>
 
       <div class="contact-form-card">
