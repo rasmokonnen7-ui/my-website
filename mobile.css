@@ -366,12 +366,18 @@ body {
   }
 
   .page-home .info-box-section {
-    padding: 1.5rem 1rem 2rem;
+    padding: 1.25rem 0.75rem 1.5rem;
   }
 
   .page-home .info-box-button {
-    padding: 1.15rem 1rem;
+    padding: 0.85rem 0.75rem;
     animation: none;
+    margin: 0 0.25rem;
+  }
+
+  .page-home .info-box-button-label {
+    font-size: 0.7rem;
+    margin-bottom: 0.35rem;
   }
 
   .page-home .info-box-button-sub,
@@ -380,31 +386,110 @@ body {
   }
 
   .page-home .info-box-button-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
   }
 
   .page-home .info-box-button-cta {
     width: 100%;
     max-width: none;
+    font-size: 0.82rem;
+    padding: 0.55rem 1rem;
   }
 
   .page-home .info-box-header {
-    padding: 1.25rem 1rem 0;
+    padding: 0.85rem 0.75rem 0;
   }
 
   .page-home .info-box-header h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .page-home .info-tabs {
+    padding: 0 0.75rem 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom-width: 1px;
+  }
+
+  .page-home .info-tab {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
   }
 
   .page-home .info-box-grid {
-    grid-template-columns: 1fr;
-    padding: 0 1rem;
-    gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.65rem;
+    padding: 0 0.75rem 0.5rem;
+    scrollbar-width: none;
+  }
+
+  .page-home .info-box-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .page-home .info-panel {
-    padding: 1.25rem;
+    flex: 0 0 82vw;
+    max-width: 82vw;
+    scroll-snap-align: start;
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+
+  .page-home .info-panel h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .page-home .advantage-list li {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 0.45rem;
+    padding-left: 1rem;
+  }
+
+  .page-home .how-steps li {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 0.55rem;
+    padding-left: 1.75rem;
+  }
+
+  .page-home .how-steps li::before {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.65rem;
+  }
+
+  .page-home .info-reviews {
+    gap: 0.55rem;
+  }
+
+  .page-home .info-review {
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+  }
+
+  .page-home .info-review .stars {
+    font-size: 0.7rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .page-home .info-review blockquote {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+
+  .page-home .info-review cite {
+    font-size: 0.68rem;
+  }
+
+  .page-home .info-box-panel {
+    padding-bottom: 1rem;
   }
 
   .page-home .info-section {
