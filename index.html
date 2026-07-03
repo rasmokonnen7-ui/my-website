@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bright Minds Tuition — expert Maths, English and Science tuition in Small Heath, Birmingham.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
@@ -14,7 +15,8 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="https://api.postcodes.io">
   <link rel="dns-prefetch" href="https://dfywrmguseycngbyibfk.supabase.co">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet"></noscript>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -1166,7 +1168,7 @@
       display: none;
     }
   </style>
-  <link rel="stylesheet" href="mobile.css">
+  <link rel="stylesheet" href="mobile.css" media="(max-width: 900px)">
 </head>
 <body class="page-home">
 
@@ -1529,10 +1531,6 @@
     </div>
   </footer>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="supabase-client.js"></script>
-  <script defer src="auth.js"></script>
-  <script defer src="contact.js"></script>
-  <script defer src="footer-address.js"></script>
+  <script src="site-boot.js"></script>
 </body>
 </html>
