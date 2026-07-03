@@ -6,6 +6,9 @@
   <title>Bright Minds Tuition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://api.postcodes.io">
+  <link rel="dns-prefetch" href="https://dfywrmguseycngbyibfk.supabase.co">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
@@ -1213,9 +1216,18 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <img class="hero-img hero-img-1" src="images/hero-1.jpg" alt="Students in a classroom">
-      <img class="hero-img hero-img-2" src="images/hero-2.jpg" alt="Children learning together on the floor">
-      <img class="hero-img hero-img-3" src="images/hero-3.jpg" alt="Hand writing notes with a pen">
+      <picture>
+        <source media="(min-width: 901px)" srcset="images/hero-1.jpg">
+        <img class="hero-img hero-img-1" alt="" decoding="async" width="260" height="170">
+      </picture>
+      <picture>
+        <source media="(min-width: 901px)" srcset="images/hero-2.jpg">
+        <img class="hero-img hero-img-2" alt="" decoding="async" width="185" height="120">
+      </picture>
+      <picture>
+        <source media="(min-width: 901px)" srcset="images/hero-3.jpg">
+        <img class="hero-img hero-img-3" alt="" decoding="async" width="250" height="185">
+      </picture>
       <div class="hero-content">
         <h1>
           <span class="hero-title-full">Unlock your potential and find the right path for you</span>
@@ -1228,8 +1240,14 @@
           <a href="#info" class="hero-info-link">See how it works</a>
         </div>
       </div>
-      <img class="hero-img hero-img-4" src="images/hero-4.jpg" alt="Teacher with students at desks">
-      <img class="hero-img hero-img-5" src="images/hero-5.jpg" alt="Students in a lecture hall">
+      <picture>
+        <source media="(min-width: 901px)" srcset="images/hero-4.jpg">
+        <img class="hero-img hero-img-4" alt="" decoding="async" width="290" height="185">
+      </picture>
+      <picture>
+        <source media="(min-width: 901px)" srcset="images/hero-5.jpg">
+        <img class="hero-img hero-img-5" alt="" decoding="async" width="360" height="220">
+      </picture>
     </div>
   </section>
 
@@ -1237,8 +1255,14 @@
   <section class="why-section">
     <div class="why-top">
       <div class="why-images">
-        <img class="why-img-left" src="images/why-1.jpg" alt="Student writing at a desk">
-        <img class="why-img-right" src="images/why-2.jpg" alt="Students working in a classroom">
+        <picture>
+          <source media="(min-width: 901px)" srcset="images/why-1.jpg">
+          <img class="why-img-left" alt="" decoding="async" width="420" height="280">
+        </picture>
+        <picture>
+          <source media="(min-width: 901px)" srcset="images/why-2.jpg">
+          <img class="why-img-right" alt="" decoding="async" width="380" height="240">
+        </picture>
       </div>
       <div class="why-text">
         <h2>Why choose Bright Minds tuition?</h2>
@@ -1500,10 +1524,10 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-client.js"></script>
-  <script src="auth.js"></script>
-  <script src="contact.js"></script>
-  <script src="footer-address.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase-client.js"></script>
+  <script defer src="auth.js"></script>
+  <script defer src="contact.js"></script>
+  <script defer src="footer-address.js"></script>
 </body>
 </html>

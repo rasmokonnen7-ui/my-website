@@ -8,6 +8,17 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media (max-width: 900px) {
   /* Compact header — hide desktop nav, use Menu instead */
   .site-header {
@@ -585,6 +596,23 @@ body {
 
   .page-home .footer-brand p {
     display: none;
+  }
+
+  /* Defer rendering of below-the-fold sections */
+  .page-home .why-section,
+  .page-home .info-box-section,
+  .page-home .info-section,
+  .page-home .site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+  }
+
+  .page-home .info-details:not([open]) .info-box-button {
+    animation: none;
+  }
+
+  .page-home .subject-card-link {
+    transition: none;
   }
 }
 
